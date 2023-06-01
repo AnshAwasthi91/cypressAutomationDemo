@@ -1,0 +1,9 @@
+version: '1'
+services:
+  reg-allure-chrome:
+    image: "cy-amazon-test"
+    command: "cyTest"
+    volumes:
+      - ./cypress/videos:/cypress-docker/cypress/videos
+      - ./allure-report:/cypress-docker/allure-report
+      - ./allure-results:/cypress-docker/allure-results
