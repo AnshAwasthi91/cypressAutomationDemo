@@ -1,4 +1,4 @@
-FROM node:cypress/included:6.8.0
+FROM cypress/included:6.8.0
 RUN mkdir /cypress-docker
 WORKDIR /cypress-docker
 COPY ./package.json .
