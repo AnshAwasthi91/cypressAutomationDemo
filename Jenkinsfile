@@ -1,6 +1,14 @@
 pipeline {
     agent { dockerfile true }
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    }
     stages {
+        stage('Login Docker'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
         stage('Build Image') {
             steps {
                 sh 'docker build -t cy-amazon-test .'
@@ -20,6 +28,11 @@ pipeline {
             steps{
                 sh 'docker-compose run reg-allure-chrome'
             }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
